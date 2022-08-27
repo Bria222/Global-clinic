@@ -1,20 +1,24 @@
-import Register from './Register';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './Login';
-
-
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
+import Home from './components/Home';
+import Login from './components/Login';
+import Details from './components/Details';
+import Errror from './components/Errror';
+import {Routes,Route} from "react-router-dom"
 
 function App() {
-	return (
-		<main className="App">
-			<Router>
-				<Routes>
-					<Route path="/" exact element={<Register />} />
-					<Route path="/login" element={<Login />} />
-				</Routes>
-			</Router>
-		</main>
-	);
+  return (
+  <>
+    <Header />
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/details' element={<Details />} />
+      <Route path='*' element={<Errror />} />
+    </Routes>
+  </>
+  );
 }
 
 export default App;
