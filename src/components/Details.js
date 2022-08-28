@@ -61,16 +61,14 @@ const Details = () => {
                     logindata[0].date === todayDate ? 
                     <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
-                                <Modal.Title>{logindata[0].name} 😄</Modal.Title>
+                                <Modal.Title>{logindata[0].name} </Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>Wish you many many happy returns of the day ! 🍰</Modal.Body>
+                            <Modal.Body>Welcome to global clinic  </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
                                     Close
                                 </Button>
-                                <Button variant="primary" onClick={handleClose}>
-                                    Save Changes
-                                </Button>
+                               
                             </Modal.Footer>
                         </Modal>:""
                 }   
