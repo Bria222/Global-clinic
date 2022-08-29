@@ -19,8 +19,7 @@ const Home = () => {
         date: "",
         password: ""
     })
-
-   const [data,setData] = useState([]);
+    const [data, setData] = useState([]);
     console.log(inpval);
 
     const getdata = (e) => {
