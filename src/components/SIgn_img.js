@@ -1,10 +1,10 @@
 import React from 'react'
 
-const SIgn_img = () => {
+const Sign_img = () => {
     return (
         <>
             <div className="right_data mt-5" style={{ width: "100%" }}>
-                <div className="sign_img mt-5">
+                <div className="Sign_img mt-5">
                     <img src="./doctor.png" style={{ maxWidth: 400 }} alt="" />
                 </div>
             </div>
@@ -12,4 +12,5 @@ const SIgn_img = () => {
     )
 }
 
-export default SIgn_img
+export default Sign_img
+

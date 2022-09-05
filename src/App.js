@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Register from './components/Register';
 import Login from './components/Login';
-import Details from './components/Details';
+import Welcome from './components/Welcome';
 import Errror from './components/Errror';
 import {Routes,Route} from "react-router-dom"
 
@@ -14,7 +14,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Register/>} />
       <Route path='/login' element={<Login />} />
-      <Route path='/details' element={<Details />} />
+      <Route path='/details' element={<Welcome />} />
       <Route path='*' element={<Errror />} />
     </Routes>
   </>
