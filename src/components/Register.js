@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
-const Home = () => {
+const Register = () => {
 const history = useNavigate();
 
     const [inpval, setInpval] = useState({
@@ -158,4 +158,4 @@ const history = useNavigate();
     )
 }
 
-export default Home
+export default Register
