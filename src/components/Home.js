@@ -17,7 +17,8 @@ const history = useNavigate();
         last_name: "",
         number: "",
        password: "",
-       password_confirmation:""
+       password_confirmation:"",
+       username:""
     })
     const [data, setData] = useState([]);
     console.log(inpval);
@@ -36,7 +37,7 @@ const history = useNavigate();
      const addData = (e) => {
         e.preventDefault();
 
-        const {country_code,email, first_name, last_name,number, password,password_confirmation } = inpval;
+        const {country_code,email, first_name, last_name,number, password,password_confirmation,username } = inpval;
 
         if (country_code === "" && country_code.length < 4) {
             toast.error(' please check your country code',{
@@ -76,7 +77,17 @@ const history = useNavigate();
              toast.error('password length greater five',{
                 position: "top-center",
             });
-        } else {
+        }else if (password != password_confirmation) {
+            toast.error('passwords did not match please try again',{
+               position: "top-center",
+           });
+       }
+       else if (username === "" && username.length > 3) {
+        toast.error('Enter valid username and  try again',{
+           position: "top-center",
+       });
+   } 
+        else {
             alert('data added succesfully');
             console.log("data added succesfully");
             history("/login")
@@ -127,6 +138,12 @@ const history = useNavigate();
 
                                 <Form.Control type="password" name='password_confirmation' onChange={getdata} placeholder="confirm password" />
                             </Form.Group>
+
+                            <Form.Group className="mb-3 col-lg-6" controlId="username">
+
+                                <Form.Control type="username" name='username' onChange={getdata} placeholder="Username" />
+                            </Form.Group>
+
                             <Button variant="primary" className='col-lg-6' onClick={addData} style={{ background: "rgb(67, 185, 127)" }} type="submit">
                                 Register
                             </Button>
