@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
-
 const Details = () => {
 
     const [logindata, setLoginData] = useState([]);
