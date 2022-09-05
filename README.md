@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Clinic management system with react redux and Rest API
+![Screenshot (29)](https://user-images.githubusercontent.com/64264883/188514820-59929ede-55f4-4af5-9eab-af24450a5fdd.png)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
