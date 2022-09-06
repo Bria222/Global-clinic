@@ -21,7 +21,7 @@ const history = useNavigate();
        username:""
     })
     const [data, setData] = useState([]);
-    console.log(inpval);
+    // console.log(inpval);
 
     const getdata = (e) => {
       const { value, name } = e.target;
@@ -34,7 +34,7 @@ const history = useNavigate();
         })
 
     }
-     const addData = (e) => {
+     const addData = async (e) => {
         e.preventDefault();
 
         const {country_code,email, first_name, last_name,number, password,password_confirmation,username } = inpval;
@@ -77,7 +77,7 @@ const history = useNavigate();
              toast.error('password length greater five',{
                 position: "top-center",
             });
-        }else if (password !== password_confirmation) {
+        }else if (password != password_confirmation) {
             toast.error('passwords did not match please try again',{
                position: "top-center",
            });
@@ -88,6 +88,34 @@ const history = useNavigate();
        });
    } 
         else {
+// api start
+try {
+    let res = await fetch("https://auth.larntechke.com/", {
+      method: "POST",
+      body: JSON.stringify({
+        country_code:country_code,
+        email: email,
+        first_name:first_name,
+        last_name: last_name,
+       number: number,
+       password: password,
+       password_confirmation:password_confirmation,
+       username:username
+
+      }),
+    });
+    let resJson = await res.json();
+    if (res.status === 200) {
+      setData("");
+      
+    } else {
+      console.log("Some error occured");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+// api end
+
             alert('data added succesfully');
             console.log("data added succesfully");
             history("/login")
