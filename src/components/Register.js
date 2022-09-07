@@ -77,7 +77,7 @@ const history = useNavigate();
              toast.error('password length greater five',{
                 position: "top-center",
             });
-        }else if (password != password_confirmation) {
+        }else if (password !== password_confirmation) {
             toast.error('passwords did not match please try again',{
                position: "top-center",
            });
@@ -90,7 +90,7 @@ const history = useNavigate();
         else {
 // api start
 try {
-    let res = await fetch("https://auth.larntechke.com/", {
+    let res = await fetch("http://app.larntechke.com:8083/auth/users", {
       method: "POST",
       body: JSON.stringify({
         country_code:country_code,
@@ -109,6 +109,7 @@ try {
       setData("");
       
     } else {
+     
       console.log("Some error occured");
     }
   } catch (err) {
