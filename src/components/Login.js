@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Sign_img from './Sign_img'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import swal from 'sweetalert';
+
 async function loginUser(credentials) {
     return fetch('http://app.larntechke.com:8083/auth/login', {
       method: 'POST',
@@ -48,10 +46,11 @@ async function loginUser(credentials) {
   
     return (
       
-          <div >
+          <div className='container'>
             
             
-             <h3> Sign in</h3>
+             <h3 className='text-success fw-bolder'> Sign in</h3>
+             <br />
             
             <form  onSubmit={handleSubmit}>
               <input
@@ -63,6 +62,7 @@ async function loginUser(credentials) {
                 placeholder="username"
                 onChange={e => setusername(e.target.value)}
               />
+              <br/><br />
               <input
             
                 required
@@ -73,9 +73,8 @@ async function loginUser(credentials) {
                 type="password"
                 onChange={e => setPassword(e.target.value)}
               />
-              <Button variant="primary" className='col-lg-6'  style={{ background: "rgb(67, 185, 127)" }} type="submit">
-                                Submit
-            </Button>
+              <br /><br />
+              <Button  className='btn btn-success' type="submit">Submit</Button>
             </form>
           </div>
         
