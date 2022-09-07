@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Sign_img from './Sign_img'
+import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,26 +21,20 @@ const Login = () => {
 
     const getdata = (e) => {
         // console.log(e.target.value);
-
-
-        const { value, name } = e.target;
+    const { value, name } = e.target;
         // console.log(value,name);
-
-
         setInpval(() => {
             return {
                 ...inpval,
                 [name]: value
             }
-        })
-
-    }
+        })}
 
     const addData = (e) => {
         e.preventDefault();
 
         const getuserArr = localStorage.getItem("userDetails");
-        console.log(getuserArr);
+        //console.log(getuserArr);
 
         const { email, password } = inpval;
         if (email === "") {
@@ -71,7 +66,6 @@ const Login = () => {
                 } else {
                     alert('user login succesfulyy')
                     //console.log("user login succesfulyy");
-
                     localStorage.setItem("user_login", JSON.stringify(userlogin))
 
                     history("/details")
@@ -102,7 +96,8 @@ const Login = () => {
                                 Submit
                             </Button>
                         </Form>
-                        <p className='mt-3'>Already Have an Account <span>SignIn</span> </p>
+                        <p className='mt-3'>Dont Have an Account ? <span><NavLink to="/register">Register</NavLink></span> </p>
+                        
                     </div>
                     <Sign_img />
                 </section>
