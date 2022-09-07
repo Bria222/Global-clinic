@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
-const Details = () => {
+const Welcome = () => {
 
     const [logindata, setLoginData] = useState([]);
 
@@ -77,7 +77,7 @@ const Details = () => {
     )
 }
 
-export default Details
+export default Welcome
 
 
 

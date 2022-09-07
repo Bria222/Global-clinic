@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import SIgn_img from './SIgn_img'
+import Sign_img from './Sign_img'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,17 +11,17 @@ const Register = () => {
 const history = useNavigate();
 
     const [inpval, setInpval] = useState({
-        country_code:"",
-        email: "",
-        first_name: "",
-        last_name: "",
-        number: "",
+       country_code:"",
+       email: "",
+       first_name: "",
+       last_name: "",
+       number: "",
        password: "",
        password_confirmation:"",
        username:""
     })
     const [data, setData] = useState([]);
-    console.log(inpval);
+    // console.log(inpval);
 
     const getdata = (e) => {
       const { value, name } = e.target;
@@ -34,7 +34,7 @@ const history = useNavigate();
         })
 
     }
-     const addData = (e) => {
+     const addData = async (e) => {
         e.preventDefault();
 
         const {country_code,email, first_name, last_name,number, password,password_confirmation,username } = inpval;
@@ -77,7 +77,7 @@ const history = useNavigate();
              toast.error('password length greater five',{
                 position: "top-center",
             });
-        }else if (password != password_confirmation) {
+        }else if (password !== password_confirmation) {
             toast.error('passwords did not match please try again',{
                position: "top-center",
            });
@@ -88,6 +88,35 @@ const history = useNavigate();
        });
    } 
         else {
+// api start
+try {
+    let res = await fetch("http://app.larntechke.com:8083/auth/users", {
+      method: "POST",
+      body: JSON.stringify({
+        country_code:country_code,
+        email: email,
+        first_name:first_name,
+        last_name: last_name,
+       number: number,
+       password: password,
+       password_confirmation:password_confirmation,
+       username:username
+
+      }),
+    });
+    let resJson = await res.json();
+    if (res.status === 200) {
+      setData("");
+      
+    } else {
+     
+      console.log("Some error occured");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+// api end
+
             alert('data added succesfully');
             console.log("data added succesfully");
             history("/login")
@@ -106,42 +135,42 @@ const history = useNavigate();
                         <Form >
                             <Form.Group className="mb-3 col-lg-6" controlId="countrycode">
 
-                            <Form.Control type="number" name='country_code' onChange={getdata} placeholder="+254" />
+                            <Form.Control type="number" name='country_code' onChange={getdata} placeholder="+254" value={inpval.country_code} />
                             </Form.Group>
                             <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
 
-                            <Form.Control type="email" name='email' onChange={getdata} placeholder="Enter email" />
+                            <Form.Control type="email" name='email' onChange={getdata} placeholder="Enter email" value={inpval.email} />
                             </Form.Group>
 
 
                             <Form.Group className="mb-3 col-lg-6" controlId="first_name">
 
-                                <Form.Control type="text" name='first_name' onChange={getdata} placeholder="Enter Your firstName" />
+                                <Form.Control type="text" name='first_name' onChange={getdata} placeholder="Enter Your firstName" value={inpval.first_name} />
                             </Form.Group>
                             <Form.Group className="mb-3 col-lg-6" controlId="lastname">
 
-                                <Form.Control type="text" name='last_name' onChange={getdata} placeholder="Enter Your last_name" />
+                                <Form.Control type="text" name='last_name' onChange={getdata} placeholder="Enter Your last_name" value={inpval.last_name}  />
                             </Form.Group>
                             <Form.Group className="mb-3 col-lg-6" controlId="number">
 
-                                <Form.Control type="number" name='number' onChange={getdata} placeholder="Enter Your phone number" />
+                                <Form.Control type="number" name='number' onChange={getdata} placeholder="Enter Your phone number" value={inpval.number} />
                             </Form.Group>
 
                             
 
                             <Form.Group className="mb-3 col-lg-6" controlId="formBasicPassword">
 
-                                <Form.Control type="password" name='password' onChange={getdata} placeholder="Password" />
+                                <Form.Control type="password" name='password' onChange={getdata} placeholder="Password" value={inpval.password} />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6" controlId="password_confirmation">
 
-                                <Form.Control type="password" name='password_confirmation' onChange={getdata} placeholder="confirm password" />
+                                <Form.Control type="password" name='password_confirmation' onChange={getdata} placeholder="confirm password" value={inpval.password_confirmation} />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6" controlId="username">
 
-                                <Form.Control type="username" name='username' onChange={getdata} placeholder="Username" />
+                                <Form.Control type="username" name='username' onChange={getdata} placeholder="Username" value={inpval.username} />
                             </Form.Group>
 
                             <Button variant="primary" className='col-lg-6' onClick={addData} style={{ background: "rgb(67, 185, 127)" }} type="submit">
@@ -150,7 +179,7 @@ const history = useNavigate();
                         </Form>
                         <p className='mt-3'>Already Have an Account <span><NavLink to="/login">SignIn</NavLink></span> </p>
                     </div>
-                    <SIgn_img />
+                    <Sign_img />
                 </section>
                 <ToastContainer />
             </div>
