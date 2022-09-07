@@ -35,8 +35,8 @@ async function loginUser(credentials) {
       if ('success' in response ) {
         alert('success')
         .then((value) => {
-          localStorage.setItem('X-Auth-Token', response['X-Auth-Token']);
-          localStorage.setItem('user', JSON.stringify(response['user']));
+        //   localStorage.setItem('X-Auth-Token', response['X-Auth-Token']);
+        //   localStorage.setItem('user', JSON.stringify(response['user']));
          history("/Welcome");
           
         });
