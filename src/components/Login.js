@@ -1,115 +1,84 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Sign_img from './Sign_img'
+import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = () => {
-
-    const history = useNavigate();
-
-    const [inpval, setInpval] = useState({
-        email: "",
-        password: ""
+async function loginUser(credentials) {
+    return fetch('http://app.larntechke.com:8083/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
     })
-
-    const [data, setData] = useState([]);
-    console.log(inpval);
-
-    const getdata = (e) => {
-        // console.log(e.target.value);
-
-
-        const { value, name } = e.target;
-        // console.log(value,name);
-
-
-        setInpval(() => {
-            return {
-                ...inpval,
-                [name]: value
-            }
-        })
-
+      .then(data => data.json())
+   }
+  
+  export default function Login() {
+    const history = useNavigate();
+    const [username, setusername] = useState();
+    const [password, setPassword] = useState();
+  
+    const handleSubmit = async e => {
+      e.preventDefault();
+      const response = await loginUser({
+        username,
+        password
+      });
+     
+      
+      
+      if ('success' in response ) {
+        alert('success')
+        .then((value) => {
+        //   localStorage.setItem('X-Auth-Token', response['X-Auth-Token']);
+        //   localStorage.setItem('user', JSON.stringify(response['user']));
+         history("/Welcome");
+          
+        });
+      } else {
+        alert(response.error_message)
+        console.log( response.error_message);
+      }
     }
-
-    const addData = (e) => {
-        e.preventDefault();
-
-        const getuserArr = localStorage.getItem("userDetails");
-        console.log(getuserArr);
-
-        const { email, password } = inpval;
-        if (email === "") {
-            toast.error('email field is requred', {
-                position: "top-center",
-            });
-        } else if (!email.includes("@")) {
-            toast.error('please enter valid email addres', {
-                position: "top-center",
-            });
-        } else if (password === "") {
-            toast.error('password field is requred', {
-                position: "top-center",
-            });
-        } else if (password.length < 5) {
-            toast.error('password length greater five', {
-                position: "top-center",
-            });
-        } else {
-
-            if (getuserArr && getuserArr.length) {
-                const userdata = JSON.parse(getuserArr);
-                const userlogin = userdata.filter((el, k) => {
-                    return el.email === email && el.password === password
-                });
-
-                if (userlogin.length === 0) {
-                    alert("invalid details")
-                } else {
-                    alert('user login succesfulyy')
-                    //console.log("user login succesfulyy");
-
-                    localStorage.setItem("user_login", JSON.stringify(userlogin))
-
-                    history("/details")
-                }
-            }
-        }
-
-    }
-
+  
     return (
-        <>
-            <div className="container mt-3">
-                <section className='d-flex justify-content-between'>
-                    <div className="left_data mt-3 p-3" style={{ width: "100%" }}>
-                        <h3 className='text-center col-lg-6'>Sign IN</h3>
-                        <Form >
+      
+          <div className='container'>
+            
+            
+             <h3 className='text-success fw-bolder'> Sign in</h3>
+             <br />
+            
+            <form  onSubmit={handleSubmit}>
+              <input
+                
+                required
+                
+                id="username"
+                name="username"
+                placeholder="username"
+                onChange={e => setusername(e.target.value)}
+              />
+              <br/><br />
+              <input
+            
+                required
+                
+                id="password"
+                name="password"
+                placeholder="Password"
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+              />
+              <br /><br />
+              <Button  className='btn btn-success' type="submit">Submit</Button>
+            </form>
+          </div>
+        
+    );
+  }
 
-                            <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
 
-                                <Form.Control type="email" name='email' onChange={getdata} placeholder="Enter email" />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3 col-lg-6" controlId="formBasicPassword">
-
-                                <Form.Control type="password" name='password' onChange={getdata} placeholder="Password" />
-                            </Form.Group>
-                            <Button variant="primary" className='col-lg-6' onClick={addData} style={{ background: "rgb(67, 185, 127)" }} type="submit">
-                                Submit
-                            </Button>
-                        </Form>
-                        <p className='mt-3'>Already Have an Account <span>SignIn</span> </p>
-                    </div>
-                    <Sign_img />
-                </section>
-                <ToastContainer />
-            </div>
-        </>
-    )
-}
-
-export default Login
